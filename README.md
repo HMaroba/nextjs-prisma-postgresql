@@ -48,3 +48,8 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+### After creating new model run
+
+npx prisma db push
+

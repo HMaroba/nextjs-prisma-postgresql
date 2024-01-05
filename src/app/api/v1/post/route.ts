@@ -7,11 +7,9 @@ export async function POST(req: NextRequest) {
   try {
     const { userId, title, description } = await req.json();
 
-    const post = await prisma.post.create({
+    await prisma.post.create({
       data: { userId, title, description },
     });
-
-    console.log(post);
 
     return NextResponse.json(
       { success: true, message: "Post created successfully" },
@@ -23,3 +21,17 @@ export async function POST(req: NextRequest) {
     return new NextResponse("Something went wrong" + error, { status: 500 });
   }
 }
+
+export async function GET() {
+    try {
+      const allposts = await prisma.post.findMany();
+  
+      return NextResponse.json(
+        { success: true, data: allposts },
+        { status: 200 }
+      );
+    } catch (error) {
+      console.error(error);
+      return new NextResponse("Something went wrong", { status: 500 });
+    }
+  }
