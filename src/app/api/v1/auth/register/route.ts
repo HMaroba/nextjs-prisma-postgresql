@@ -49,16 +49,15 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
   try {
-    const { id, name } = await req.json()
+    const { id, name } = await req.json();
 
-    await prisma.post.update({
+    await prisma.user.update({
       where: { id },
-      data: { name }
-    })
+      data: { name },
+    });
 
-    return NextResponse.json({ msg: "Profile updated successfully" })
-
+    return NextResponse.json({ msg: "Profile updated successfully" });
   } catch (error) {
-    return new NextResponse("Something went wrong", { status: 500 })
+    return new NextResponse("Something went wrong" + error, { status: 500 });
   }
 }
