@@ -41,3 +41,10 @@ npm install prisma @prisma/client
 ### After the installation, we can then initialize Prisma with
 
 npx prisma init
+
+### Database Connection
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
