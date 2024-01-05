@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -34,3 +34,22 @@ export async function DELETE(
     return new NextResponse("Something went wrong", { status: 500 });
   }
 }
+
+export async function PUT(
+    request: Request,
+    { params }: { params: { id: number } }
+  ) {
+    const { id } = params;
+    try {
+      const { name } = await request.json();
+  
+      await prisma.user.update({
+        where: { id: Number(id) },
+        data: { name },
+      });
+  
+      return NextResponse.json({ msg: "Profile updated successfully" });
+    } catch (error) {
+      return new NextResponse("Something went wrong" + error, { status: 500 });
+    }
+  }
