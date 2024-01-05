@@ -32,3 +32,33 @@ export async function POST(req: NextRequest) {
     return new NextResponse("Something went wrong" + error, { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const allUsers = await prisma.user.findMany();
+
+    return NextResponse.json(
+      { success: true, data: allUsers },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return new NextResponse("Something went wrong", { status: 500 });
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const { id, name } = await req.json()
+
+    await prisma.post.update({
+      where: { id },
+      data: { name }
+    })
+
+    return NextResponse.json({ msg: "Profile updated successfully" })
+
+  } catch (error) {
+    return new NextResponse("Something went wrong", { status: 500 })
+  }
+}
