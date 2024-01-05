@@ -36,20 +36,20 @@ export async function DELETE(
 }
 
 export async function PUT(
-    request: Request,
-    { params }: { params: { id: number } }
-  ) {
-    const { id } = params;
-    try {
-      const { name } = await request.json();
-  
-      await prisma.user.update({
-        where: { id: Number(id) },
-        data: { name },
-      });
-  
-      return NextResponse.json({ msg: "Profile updated successfully" });
-    } catch (error) {
-      return new NextResponse("Something went wrong" + error, { status: 500 });
-    }
+  request: Request,
+  { params }: { params: { id: number } }
+) {
+  const { id } = params;
+  try {
+    const { name } = await request.json();
+
+    await prisma.user.update({
+      where: { id: Number(id) },
+      data: { name },
+    });
+
+    return NextResponse.json({ msg: "Profile updated successfully" });
+  } catch (error) {
+    return new NextResponse("Something went wrong" + error, { status: 500 });
   }
+}
