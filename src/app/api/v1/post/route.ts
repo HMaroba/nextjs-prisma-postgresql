@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const { userId, title, description } = await req.json();
 
-    const isUserExisting = await prisma.user.findFirst({ where: { userId } });
+    const isUserExisting = await prisma.user.findFirst({ where: { id:  userId } });
     if (!isUserExisting)
       return NextResponse.json(
         { success: false, message: "User Does not Exists...!" },
@@ -30,15 +30,15 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-    try {
-      const allposts = await prisma.post.findMany();
-  
-      return NextResponse.json(
-        { success: true, data: allposts },
-        { status: 200 }
-      );
-    } catch (error) {
-      console.error(error);
-      return new NextResponse("Something went wrong", { status: 500 });
-    }
+  try {
+    const allposts = await prisma.post.findMany();
+
+    return NextResponse.json(
+      { success: true, data: allposts },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return new NextResponse("Something went wrong", { status: 500 });
   }
+}
