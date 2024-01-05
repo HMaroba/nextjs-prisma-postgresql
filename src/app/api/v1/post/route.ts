@@ -7,14 +7,14 @@ export async function POST(req: NextRequest) {
   try {
     const { userId, title, description } = await req.json();
 
-    const isUserExisting = await prisma.user.findFirst({ where: { userId } });
-    if (!isUserExisting)
-      return NextResponse.json(
-        { success: false, message: "User does not Exists...!" },
-        { status: 422 }
-      );
+    // const isUserExisting = await prisma.user.findFirst({ where: { id } });
+    // if (!isUserExisting)
+    //   return NextResponse.json(
+    //     { success: false, message: "User does not Exists...!" },
+    //     { status: 422 }
+    //   );
 
-    await prisma.user.create({
+    await prisma.post.create({
       data: { userId, title, description },
     });
 
