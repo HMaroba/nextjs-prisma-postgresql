@@ -10,7 +10,10 @@ export async function POST(req: NextRequest) {
 
     const isUserExisting = await prisma.user.findFirst({ where: { email } });
     if (isUserExisting)
-      return new NextResponse("User Already Exists...!", { status: 422 });
+      return NextResponse.json(
+        { success: false, message: "User Already Exists...!" },
+        { status: 422 }
+      );
 
     const salt = await genSalt(10);
     const hashed = await hash(password, salt);
@@ -19,7 +22,12 @@ export async function POST(req: NextRequest) {
       data: { name, email, password: hashed },
     });
 
-    return NextResponse.json({ message: "User created successful" });
+    return NextResponse.json(
+      { success: true, message: "User registered successfully" },
+      {
+        status: 201,
+      }
+    );
   } catch (error) {
     return new NextResponse("Something went wrong" + error, { status: 500 });
   }
