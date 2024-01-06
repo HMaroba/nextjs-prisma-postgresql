@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     const allAuthors = await prisma.author.findMany();
-    return NextResponse.json(allAuthors);
+    return NextResponse.json({ success: true, authors: allAuthors });
   } catch (error) {
     return NextResponse.json({
       success: false,
@@ -43,3 +43,20 @@ export async function GET() {
     });
   }
 }
+
+// export async function GET(req: NextRequest) {
+//   try {
+//     const { email } = await req.json();
+
+//     const getPosts = await prisma.author.findMany({
+//       where: { email },
+//     });
+
+//     return NextResponse.json(getPosts);
+//   } catch (error) {
+//     return NextResponse.json({
+//       message: "Something went wrong" + error,
+//       success: false,
+//     });
+//   }
+// }

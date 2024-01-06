@@ -33,6 +33,7 @@ model Post {
 model Author {
   id    Int     @id @default(autoincrement())
   email String  @unique
+  phoneNumber String @unique
   name  String?
   books Book[]
 }
