@@ -30,3 +30,16 @@ export async function POST(req: NextRequest) {
     return new NextResponse("Something went wrong" + error, { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const allAuthors = await prisma.author.findMany();
+    return NextResponse.json(allAuthors);
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      message: "Something went wrong" + error,
+      status: 500,
+    });
+  }
+}
