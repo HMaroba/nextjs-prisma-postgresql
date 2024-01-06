@@ -29,3 +29,19 @@ model Post {
   updatedAt   DateTime  @updatedAt
 
 }
+
+model Author {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  books Book[]
+}
+
+model Book {
+  id        Int     @id @default(autoincrement())
+  title     String
+  description   String?
+  published Boolean @default(false)
+  author    Author    @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
