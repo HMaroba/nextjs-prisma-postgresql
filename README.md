@@ -27,6 +27,11 @@ datasource db {
 npx prisma db push
 ```
 
+### RUN THIS To generate prisma after changing model 
+
+```bash
+npx prisma generate
+
 ### Prisma Schema Example
 
 ```bash

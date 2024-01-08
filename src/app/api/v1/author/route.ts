@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email } = await req.json();
+    const { name, email, phoneNumber } = await req.json();
 
     const isAuthorExisting = await prisma.author.findFirst({
       where: { email },
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     }
 
     await prisma.author.create({
-      data: { name, email },
+      data: { name, email, phoneNumber: phoneNumber || "56000000" },
     });
 
     return NextResponse.json(
@@ -43,7 +43,6 @@ export async function GET() {
     });
   }
 }
-
 // export async function GET(req: NextRequest) {
 //   try {
 //     const { email } = await req.json();
